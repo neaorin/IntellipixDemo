@@ -29,10 +29,14 @@ namespace IntellipixDemoWeb.Controllers
 
                 if (blob != null)
                 {
+                    blob.FetchAttributes(); // Get blob metadata
+                    var caption = blob.Metadata.ContainsKey("Caption") ? blob.Metadata["Caption"] : blob.Name;
+
                     blobs.Add(new BlobInfo()
                     {
                         ImageUri = blob.Uri.ToString(),
-                        ThumbnailUri = blob.Uri.ToString().Replace("/photos/", "/thumbnails/")
+                        ThumbnailUri = blob.Uri.ToString().Replace("/photos/", "/thumbnails/"),
+                        Caption = caption
                     });
                 }
             }
